@@ -72,7 +72,6 @@ def main(args):
 
         # Calculate Hit@K
         k = 10
-        # Correctly isolate the logits for only the masked positions before getting top K
         top_k_predictions = torch.topk(logits[indices_to_mask], k, dim=-1).indices.cpu().numpy()
         hits_at_k = np.mean([1 if true in pred else 0 for true, pred in zip(y_true, top_k_predictions)])
 
@@ -127,3 +126,4 @@ if __name__ == "__main__":
     
     args = parser.parse_args()
     main(args)
+
